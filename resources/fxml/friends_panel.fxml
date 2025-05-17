@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.FlowPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<VBox xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/21"
+      fx:controller="com.palveo.gui.controller.FriendsPanelController"
+      style="-fx-background-color: transparent;" alignment="TOP_CENTER" spacing="15">
+    <padding>
+        <Insets top="15.0" right="15.0" bottom="15.0" left="15.0"/>
+    </padding>
+
+    <children>
+        <Label text="My Friends" style="-fx-font-family: 'System Medium'; -fx-font-size: 22px; -fx-text-fill: #212121;"/>
+
+        <TextField fx:id="searchFriendsField" promptText="Search friends by name or username..." style="-fx-pref-height: 38px; -fx-font-size: 13px; -fx-background-color: #FFFFFF; -fx-border-color: #E0E0E0; -fx-border-width: 1px; -fx-border-radius: 20px; -fx-padding: 0 15 0 15; -fx-prompt-text-fill: #AAAAAA;"/>
+        
+        <Label fx:id="pendingRequestsHeader" text="Pending Incoming Requests" style="-fx-font-family: 'System Bold'; -fx-font-size: 16px; -fx-text-fill: #333333;" managed="false" visible="false">
+            <VBox.margin>
+                <Insets top="10.0" bottom="5.0"/>
+            </VBox.margin>
+        </Label>
+        <VBox fx:id="pendingRequestsBox" spacing="8" managed="false" visible="false" style="-fx-padding: 0 0 10 0; -fx-background-color: #FFFDE7; -fx-border-color: #FFF59D; -fx-border-width:1px; -fx-border-radius:6px; -fx-background-radius:6px; -fx-padding:10px;"/>
+
+        <Label text="Friends List" style="-fx-font-family: 'System Bold'; -fx-font-size: 16px; -fx-text-fill: #333333;">
+            <VBox.margin>
+                <Insets top="10"/>
+            </VBox.margin>
+        </Label>
+        <ScrollPane fx:id="friendsScrollPane" fitToWidth="true" hbarPolicy="NEVER" style="-fx-background-color: #F9F9F9; -fx-border-color: #E0E0E0; -fx-border-width:1px; -fx-border-radius:6px;" VBox.vgrow="ALWAYS">
+            <content>
+                <FlowPane fx:id="friendsFlowPane" hgap="12.0" vgap="12.0" alignment="TOP_LEFT" style="-fx-padding: 12; -fx-background-color: transparent;">
+                </FlowPane>
+            </content>
+        </ScrollPane>
+        <Label fx:id="statusLabel" text="Loading friends..." style="-fx-text-fill: #757575; -fx-font-style: italic; -fx-font-size: 14px;" visible="false" managed="false"/>
+    </children>
+</VBox>
