@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.FlowPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<VBox fx:id="rootDialogPane" alignment="TOP_CENTER" spacing="15.0" style="-fx-background-color: #f4f4f4; -fx-padding: 20;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.palveo.gui.controller.ManageEventTagsDialogController">
+    <children>
+        <Label fx:id="dialogTitleLabel" text="Manage Tags for [Event Title]" textAlignment="CENTER" wrapText="true">
+            <font>
+                <Font name="System Bold" size="16.0" />
+            </font>
+            <VBox.margin>
+                <Insets bottom="5.0" />
+            </VBox.margin>
+        </Label>
+
+        <Label text="Current Tags:">
+            <font><Font name="System Regular" size="13.0" /></font>
+        </Label>
+        <ScrollPane fx:id="currentTagsScrollPane" fitToWidth="true" prefHeight="100.0" style="-fx-background-color: #FFFFFF; -fx-border-color: #E0E0E0;">
+            <content>
+                <FlowPane fx:id="currentEventTagsFlowPane" hgap="6" vgap="6" style="-fx-padding: 8;" />
+            </content>
+        </ScrollPane>
+         <Label fx:id="noCurrentTagsLabel" text="No tags currently applied to this event." style="-fx-text-fill: #757575; -fx-font-style: italic;" visible="false" managed="false"/>
+
+
+        <HBox alignment="CENTER_LEFT" spacing="10.0">
+            <children>
+                <TextField fx:id="newTagTextField" HBox.hgrow="ALWAYS" promptText="Enter new tag name" style="-fx-font-size: 13px; -fx-pref-height: 35px;" />
+                <Button fx:id="addTagButton" mnemonicParsing="false" onAction="#handleAddTagAction" text="Add Tag" style="-fx-background-color: #28a745; -fx-text-fill: white; -fx-font-size: 13px; -fx-padding: 6 12;"/>
+            </children>
+            <VBox.margin>
+                <Insets top="10.0" />
+            </VBox.margin>
+        </HBox>
+
+        <Button fx:id="doneButton" mnemonicParsing="false" onAction="#handleDoneAction" text="Done" style="-fx-background-color: #007bff; -fx-text-fill: white; -fx-font-size: 14px; -fx-padding: 8 20;" maxWidth="Infinity">
+            <VBox.margin>
+                <Insets top="15.0" />
+            </VBox.margin>
+        </Button>
+    </children>
+</VBox>

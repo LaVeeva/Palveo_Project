@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.shape.Circle?>
+<?import javafx.scene.text.Font?>
+
+<BorderPane fx:id="rootPane" prefHeight="650.0" prefWidth="400.0" style="-fx-background-color: #F4F7FA;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.palveo.gui.controller.MainPanelController">
+    <top>
+        <HBox alignment="CENTER_LEFT" prefHeight="60.0" style="-fx-background-color: #ffffff; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.06), 10, 0.1, 0, 2);">
+            <padding>
+                <Insets left="15.0" right="15.0" top="5.0" bottom="5.0"/>
+            </padding>
+            <children>
+                <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
+                    <image>
+                        <Image url="@/images/logo.png" backgroundLoading="true" />
+                    </image>
+                    <HBox.margin>
+                        <Insets right="10.0"/>
+                    </HBox.margin>
+                </ImageView>
+                
+                <Label fx:id="loggedInUserLabel" text="Username" HBox.hgrow="ALWAYS" alignment="CENTER_LEFT" style="-fx-font-family: 'System'; -fx-font-weight: bold; -fx-font-size: 15px; -fx-text-fill: #212121;"/>
+
+                <HBox alignment="CENTER_RIGHT" spacing="10.0" HBox.hgrow="NEVER">
+                    <children>
+                        <Button fx:id="logoutButton" onAction="#handleLogoutAction" text="Logout" style="-fx-background-color: transparent; -fx-text-fill: #555555; -fx-font-size: 13px; -fx-padding: 5 8; -fx-border-color: transparent; -fx-border-width: 0; -fx-cursor: hand;">
+                             <font>
+                                <Font name="System Medium" size="13.0"/>
+                            </font>
+                        </Button>
+                        <Button fx:id="friendsButton" onAction="#handleFriendsNavigation" prefWidth="40" prefHeight="40" style="-fx-background-color: transparent; -fx-padding: 4; -fx-cursor: hand;">
+                            <graphic>
+                                <ImageView fitHeight="26.0" fitWidth="26.0" pickOnBounds="true" preserveRatio="true">
+                                    <image>
+                                        <Image url="@/images/friends_icon.png" />
+                                    </image>
+                                </ImageView>
+                            </graphic>
+                        </Button>
+                    </children>
+                </HBox>
+            </children>
+        </HBox>
+    </top>
+
+    <center>
+        <VBox fx:id="contentArea" alignment="CENTER" BorderPane.alignment="CENTER" style="-fx-background-color: #FFFFFF;"/>
+    </center>
+
+    <bottom>
+        <HBox fx:id="bottomNavBox" alignment="CENTER" prefHeight="60.0" spacing="20.0" style="-fx-background-color: #ffffff; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.06), 10, 0.1, 0, -2);">
+            <padding>
+                <Insets top="5.0" bottom="5.0" left="15.0" right="15.0"/>
+            </padding>
+            <children>
+                <Button fx:id="homeNavButton" onAction="#handleHomeNavigation" styleClass="nav-button" HBox.hgrow="ALWAYS" maxWidth="Infinity">
+                    <graphic>
+                        <ImageView fx:id="homeNavIcon" fitHeight="28.0" fitWidth="28.0" pickOnBounds="true" preserveRatio="true">
+                            <image><Image url="@/images/home_icon.png" /></image>
+                        </ImageView>
+                    </graphic>
+                </Button>
+                <Button fx:id="gatheringsNavButton" onAction="#handleGatheringsNavigation" styleClass="nav-button" HBox.hgrow="ALWAYS" maxWidth="Infinity">
+                    <graphic>
+                        <ImageView fx:id="gatheringsNavIcon" fitHeight="28.0" fitWidth="28.0" pickOnBounds="true" preserveRatio="true">
+                            <image><Image url="@/images/gatherings_icon.png" /></image>
+                        </ImageView>
+                    </graphic>
+                </Button>
+                <Button fx:id="createGatheringNavButton" onAction="#handleCreateGatheringNavigation" styleClass="nav-button" HBox.hgrow="ALWAYS" maxWidth="Infinity">
+                    <graphic>
+                        <ImageView fx:id="createGatheringNavIcon" fitHeight="28.0" fitWidth="28.0" pickOnBounds="true" preserveRatio="true">
+                             <image><Image url="@/images/create_gathering_icon.png" /></image>
+                        </ImageView>
+                    </graphic>
+                </Button>
+                <Button fx:id="profileNavButton" onAction="#handleProfileNavigation" styleClass="nav-button" HBox.hgrow="ALWAYS" maxWidth="Infinity">
+                    <graphic>
+                        <ImageView fx:id="profileNavIcon" fitHeight="28.0" fitWidth="28.0" pickOnBounds="true" preserveRatio="true">
+                            <image><Image url="@/images/profile_icon.png" /></image>
+                        </ImageView>
+                    </graphic>
+                </Button>
+            </children>
+        </HBox>
+    </bottom>
+</BorderPane>

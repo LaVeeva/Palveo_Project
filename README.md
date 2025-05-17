@@ -14,13 +14,15 @@
 - Open Visual Studio Code, open Palveo as a project
 - Open MainApp.java in editor to let the program be recognised as a java project. **Java Projects view** should be available at the bottom of the project explorer.
 - Expand the Java Projects view, and add the all of the libraries in C:\JavaFX\javafx-sdk-24.0.1\lib to the **referenced libraries**.
-- Preferrably from the Run & Debug view, launch the app using the "Palveo App" configuration. VS Code tends to auto-assign non-working launch configurations unless the app is started as instructed.
+- From the Run & Debug view, run "Test Data". You can note the credentials to later log into the sample accounts. 
+- Launch the app using the "Palveo App" configuration. Beware, VS Code tends to auto-assign non-working launch configurations unless the app is started as instructed.
 
 The program should run without any problems at this point.
 
-**Because our TA left, we missed the part where we needed to open a github repository and add our TA.**
-**Instead, we met face-to-face, working from a single computer most of the time - we shared the code either via flash drives or sent it through whatsapp to each other.**
-**We could only setup the repo after being finished with the project.**
+**Because our TA left, we missed the part where we needed to open a github repository and give access to our TA.**
+**Since we didn't think of using github ourselves, we met face-to-face, collecting code to a single computer at the end of the day - we shared the code either via flash drives or sent it through whatsapp to each other.**
+**We could only setup the repo after being finished with the project demo.**
+**Most of our time went to copy-pasting and adapting exception handling code anyways.**
 
 **We still did the commits, but have no tracable history of the work we have done.**
 **Hence, we are leaving the task sharing below**

@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Circle?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.TextFlow?>
+
+<BorderPane xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.palveo.gui.controller.ProfileController" style="-fx-background-color: #F4F7FA;">
+    <top>
+        <HBox alignment="CENTER_LEFT" spacing="10" prefHeight="55.0" style="-fx-padding: 0 15 0 15; -fx-background-color: #FFFFFF; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.06), 10, 0.1, 0, 2);">
+            <Label text="My Profile" HBox.hgrow="ALWAYS" style="-fx-font-family: 'System Medium'; -fx-font-size: 18px; -fx-text-fill: #212121;"/>
+            <Button fx:id="editProfileButton" text="Edit Profile" onAction="#handleEditProfileButtonAction" style="-fx-background-color: #007bff; -fx-text-fill: white; -fx-font-size: 12px; -fx-padding: 6 12; -fx-background-radius: 6px;">
+                <graphic>
+                    <ImageView fitHeight="14" fitWidth="14" preserveRatio="true">
+                        <image><Image url="@/images/edit_icon.png"/></image>
+                    </ImageView>
+                </graphic>
+            </Button>
+        </HBox>
+    </top>
+    <center>
+        <ScrollPane fitToWidth="true" style="-fx-background-color: transparent; -fx-hbar-policy: NEVER;">
+            <content>
+                <VBox alignment="TOP_CENTER" spacing="20.0" style="-fx-padding: 25;">
+                    <children>
+                        <VBox alignment="CENTER" spacing="10">
+                             <StackPane prefHeight="105" prefWidth="105">
+                                <ImageView fx:id="profileImageView" fitHeight="100.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true">
+                                    <image>
+                                        <Image url="@/images/default_avatar.png" backgroundLoading="true"/>
+                                    </image>
+                                    <clip>
+                                         <Circle radius="50" centerX="50" centerY="50"/>
+                                    </clip>
+                                </ImageView>
+                                <Button fx:id="changeAvatarButton" onAction="#handleChangeAvatarAction" style="-fx-background-color: rgba(0,0,0,0.5); -fx-text-fill: white; -fx-background-radius: 20; -fx-padding: 3 5;" textAlignment="CENTER" StackPane.alignment="BOTTOM_RIGHT">
+                                     <graphic>
+                                        <ImageView fitHeight="14" fitWidth="14" preserveRatio="true">
+                                            <image><Image url="@/images/camera_icon.png"/></image>
+                                        </ImageView>
+                                    </graphic>
+                                     <StackPane.margin>
+                                        <Insets bottom="5" right="0"/>
+                                    </StackPane.margin>
+                                </Button>
+                            </StackPane>
+
+                            <Label fx:id="usernameLabel" text="Username" style="-fx-font-family: 'System Bold'; -fx-font-size: 22px; -fx-text-fill: #212121;" />
+                            <Label fx:id="fullNameLabel" text="Full Name" style="-fx-font-size: 14px; -fx-text-fill: #555555;" />
+
+                            <HBox alignment="CENTER" spacing="15" style="-fx-padding: 8 0 0 0;">
+                                <VBox alignment="CENTER" spacing="3">
+                                    <Label text="TAGS" style="-fx-font-size: 10px; -fx-text-fill: #757575; -fx-font-weight: bold;"/>
+                                    <TextFlow fx:id="tagsTextFlow" prefWidth="300" textAlignment="CENTER" style="-fx-padding: 0 0 0 5;"/>
+                                </VBox>
+                                <VBox alignment="CENTER" spacing="3">
+                                     <Label text="AVG. RATING" style="-fx-font-size: 10px; -fx-text-fill: #757575; -fx-font-weight: bold;"/>
+                                    <Label fx:id="averageRatingLabel" text="Not rated yet" style="-fx-font-size: 12px; -fx-text-fill: #444;"/>
+                                </VBox>
+                            </HBox>
+
+                             <VBox fx:id="bioViewBox" alignment="CENTER" managed="true" visible="true" style="-fx-padding: 10 0 0 0;">
+                                 <Label text="BIO" style="-fx-font-size: 10px; -fx-text-fill: #757575; -fx-font-weight: bold; -fx-padding-bottom: 3;"/>
+                                 <Label fx:id="bioLabel" text="User biography will appear here..." wrapText="true" textAlignment="CENTER" maxWidth="350.0" style="-fx-font-size: 13px; -fx-text-fill: #555555; -fx-background-color: #F8F8F8; -fx-padding: 10; -fx-background-radius: 4px;">
+                                    <VBox.margin>
+                                        <Insets top="2.0" />
+                                    </VBox.margin>
+                                </Label>
+                            </VBox>
+                        </VBox>
+
+                        <Separator prefWidth="200.0" style="-fx-background-color: #EEEEEE;">
+                           <VBox.margin>
+                              <Insets top="25.0" bottom="15.0" />
+                           </VBox.margin>
+                        </Separator>
+
+                        <Label text="My Created Gatherings" style="-fx-font-family: 'System Bold'; -fx-font-size: 18px; -fx-text-fill: #333333;">
+                            <VBox.margin>
+                                <Insets bottom="10.0"/>
+                            </VBox.margin>
+                        </Label>
+                        <VBox fx:id="gatheringsContainer" spacing="15" alignment="TOP_CENTER" minHeight="50">
+                             <Label fx:id="noGatheringsLabel" text="You haven't created any gatherings yet." style="-fx-text-fill: #757575; -fx-font-style: italic; -fx-font-size: 14px;" visible="false" managed="false"/>
+                        </VBox>
+
+                        <Separator prefWidth="200.0" style="-fx-background-color: #EEEEEE;">
+                           <VBox.margin>
+                              <Insets top="25.0" bottom="15.0" />
+                           </VBox.margin>
+                        </Separator>
+
+                        <Label text="Comments on This Profile" style="-fx-font-family: 'System Bold'; -fx-font-size: 18px; -fx-text-fill: #333333;">
+                            <VBox.margin>
+                                <Insets bottom="10.0"/>
+                            </VBox.margin>
+                        </Label>
+                        <VBox fx:id="commentsContainer" spacing="10" alignment="TOP_LEFT" minHeight="50" style="-fx-padding: 0 5;">
+                             <Label fx:id="noCommentsLabel" text="No comments on this profile yet." style="-fx-text-fill: #757575; -fx-font-style: italic; -fx-font-size: 14px;" visible="false" managed="false"/>
+                        </VBox>
+
+                    </children>
+                </VBox>
+            </content>
+        </ScrollPane>
+    </center>
+</BorderPane>

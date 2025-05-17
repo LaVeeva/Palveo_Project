@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<VBox alignment="CENTER" spacing="20.0" style="-fx-background-color: #F9F9F9;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.palveo.gui.controller.WelcomeController">
+    <padding>
+        <Insets top="20.0" right="20.0" bottom="20.0" left="20.0"/>
+    </padding>
+    <children>
+        <ImageView fitHeight="180.0" fitWidth="180.0" pickOnBounds="true" preserveRatio="true">
+            <image>
+                <Image url="@/images/logo.png" backgroundLoading="true"/>
+            </image>
+            <VBox.margin>
+                <Insets top="60.0" bottom="80.0"/>
+            </VBox.margin>
+        </ImageView>
+
+        <Label fx:id="loginLabel" text="LOGIN" onMouseClicked="#handleLoginLabelClick" style="-fx-cursor: hand; -fx-text-fill: #212121;">
+            <font>
+                <Font name="System Bold" size="28.0"/>
+            </font>
+        </Label>
+
+        <Label fx:id="signUpLabel" text="SIGNUP" onMouseClicked="#handleSignUpLabelClick" style="-fx-cursor: hand; -fx-text-fill: #212121;">
+            <font>
+                <Font name="System Bold" size="28.0"/>
+            </font>
+        </Label>
+    </children>
+</VBox>
