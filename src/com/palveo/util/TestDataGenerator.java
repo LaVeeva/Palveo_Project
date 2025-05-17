@@ -62,7 +62,6 @@ public class TestDataGenerator {
     };
     private static final String DEFAULT_EVENT_IMAGE = "/images/default_event_image.png";
     private static final String RANDOM_USER_AVATAR = "/images/avatars/default_avatar_rnd.png";
-    private static final int PAST_EVENT_OFFSET_DAYS = 2;
 
 
     private static List<User> allUsers = new ArrayList<>();
@@ -91,14 +90,14 @@ public class TestDataGenerator {
             createDeveloperAccounts();
             createRandomUserAccount();
             if (allUsers.isEmpty()) { System.out.println("[WARN] No users created/found, further steps might be skipped or fail."); }
-            
+
             enhanceProfiles();
             createFriendships();
             if (allUsers.size() < 2) { System.out.println("[WARN] Less than 2 users, friendship tests limited."); }
-            
+
             createEvents();
             if (createdEvents.isEmpty()) { System.out.println("[WARN] No events created, further steps might be skipped or fail."); }
-            
+
             if (!createdEvents.isEmpty()) {
                 createEventParticipations();
                 applyTagsToEventsAndUsers();
@@ -185,7 +184,7 @@ public class TestDataGenerator {
     private static void enhanceProfiles() {
         System.out.println("\n[STEP 3/9] Enhancing User Profiles...");
         if (allUsers.isEmpty()) { System.out.println("  [SKIP] No users to enhance."); return; }
-        
+
         List<User> usersToProcess = new ArrayList<>(allUsers);
         List<User> successfullyEnhancedUsers = new ArrayList<>();
 
@@ -202,27 +201,27 @@ public class TestDataGenerator {
 
             try {
                 User updates = new User();
-                updates.setId(userToEnhance.getId()); 
+                updates.setId(userToEnhance.getId());
                 if (isDev) {
                     updates.setBio(DEV_BIOS[devIndex % DEV_BIOS.length]);
                     updates.setProfileImagePath(DEV_AVATARS[devIndex % DEV_AVATARS.length]);
                 } else if (randomUserAccount != null && userToEnhance.getId() == randomUserAccount.getId()) {
-                    updates.setBio(userToEnhance.getBio()); 
+                    updates.setBio(userToEnhance.getBio());
                     updates.setProfileImagePath(userToEnhance.getProfileImagePath());
                 } else {
                     updates.setBio("A Palveo User.");
                     updates.setProfileImagePath(RANDOM_USER_AVATAR);
                 }
-                
+
                 userService.updateUserProfile(updates, userToEnhance);
                 userService.getUserById(userToEnhance.getId()).ifPresent(successfullyEnhancedUsers::add);
                 System.out.println("  [OK] Enhanced profile for: " + userToEnhance.getUsername());
             } catch (Exception e) {
                 System.err.println("  [ERROR] Enhancing profile for " + userToEnhance.getUsername() + ": " + e.getMessage());
-                successfullyEnhancedUsers.add(userToEnhance); 
+                successfullyEnhancedUsers.add(userToEnhance);
             }
         }
-        allUsers = successfullyEnhancedUsers; 
+        allUsers = successfullyEnhancedUsers;
     }
 
     private static User getUserByUsername(String username) {
@@ -263,7 +262,7 @@ public class TestDataGenerator {
                 System.err.println("  [ERROR] Declining " + u6.getUsername() + " by " + u3.getUsername() + ": " + e.getMessage());
             }
         }
-       
+
         if (u1 != null && u6 != null) {
             try {
                 friendshipService.blockUser(u1, u6);
@@ -321,7 +320,7 @@ public class TestDataGenerator {
 
     private static void createEvents() {
         System.out.println("\n[STEP 5/9] Creating Events...");
-        createdEvents.clear(); 
+        createdEvents.clear();
         if (allUsers.isEmpty()) { System.out.println("  [SKIP] No users to host events."); return; }
         User ahmet = getUserByUsername("aacamlibel");
         User batuhanK = getUserByUsername("bkucuk");
@@ -329,7 +328,7 @@ public class TestDataGenerator {
         User mehmetE = getUserByUsername("mesarigul");
         User omur = getUserByUsername("omarici");
         User randomU = randomUserAccount;
-        
+
         LocalDateTime now = LocalDateTime.now().truncatedTo(ChronoUnit.MINUTES);
         List<Event> tempEventList = new ArrayList<>();
 
@@ -341,13 +340,14 @@ public class TestDataGenerator {
             if (randomU != null) tempEventList.add(new EventBuilder("Downtown Photography Walk", "Capture city scapes. All skill levels.", now.plusDays(5).withHour(14).withMinute(0), "Kızılay Square", "Social", Event.PrivacySetting.PUBLIC, DEFAULT_EVENT_IMAGE).buildWithHost(randomU));
             if (mehmetE != null) tempEventList.add(new EventBuilder("Advanced Cooking Class: Pasta", "Learn to make fresh pasta. Limited spots!", now.plusDays(15).withHour(17).withMinute(0), "Culinary Institute", "Food", Event.PrivacySetting.PUBLIC, DEFAULT_EVENT_IMAGE).buildWithHost(mehmetE));
 
-            LocalDateTime pastEventTime1 = now.minusDays(PAST_EVENT_OFFSET_DAYS).withHour(14).withMinute(0);
-            LocalDateTime pastEventTime2 = now.minusDays(PAST_EVENT_OFFSET_DAYS - 1).withHour(20).withMinute(0); 
-            if (mehmetE != null) tempEventList.add(new EventBuilder("Eymir Lake Hike (Past)", "Refreshing hike, beautiful views.", pastEventTime1, "Eymir Lake, Ankara", "Sports", Event.PrivacySetting.PUBLIC, DEFAULT_EVENT_IMAGE).buildWithHost(mehmetE));
-            if (batuhanY != null) tempEventList.add(new EventBuilder("Palveo Alpha Celebration (Past)", "Project milestone achieved! (Friends only)", pastEventTime1.plusHours(2), "The Usual Spot", "Social", Event.PrivacySetting.PRIVATE, DEFAULT_EVENT_IMAGE).buildWithHost(batuhanY));
-            if (batuhanK != null) tempEventList.add(new EventBuilder("Retro Game Night - NES Classics (Past)", "Duck Hunt, Mario, Zelda!", pastEventTime2, batuhanK.getCity() + " - Batuhan K's Mancave", "Gaming", Event.PrivacySetting.PRIVATE, DEFAULT_EVENT_IMAGE).buildWithHost(batuhanK));
-            if (omur != null) tempEventList.add(new EventBuilder("Book Club: Sci-Fi Classics (Past)", "Discussing 'Dune'.", pastEventTime2.plusHours(1), "Online / Discord", "Study", Event.PrivacySetting.PUBLIC, DEFAULT_EVENT_IMAGE).buildWithHost(omur));
-            
+            LocalDateTime soonEventBaseTime1 = now.plusSeconds(10);
+            LocalDateTime soonEventBaseTime2 = now.plusSeconds(11);
+
+            if (mehmetE != null) tempEventList.add(new EventBuilder("Eymir Lake Hike (Past)", "Refreshing hike, beautiful views.", soonEventBaseTime1, "Eymir Lake, Ankara", "Sports", Event.PrivacySetting.PUBLIC, DEFAULT_EVENT_IMAGE).buildWithHost(mehmetE));
+            if (batuhanY != null) tempEventList.add(new EventBuilder("Palveo Alpha Celebration (Past)", "Project milestone achieved! (Friends only)", soonEventBaseTime1.plusHours(2), "The Usual Spot", "Social", Event.PrivacySetting.PRIVATE, DEFAULT_EVENT_IMAGE).buildWithHost(batuhanY));
+            if (batuhanK != null) tempEventList.add(new EventBuilder("Retro Game Night - NES Classics (Past)", "Duck Hunt, Mario, Zelda!", soonEventBaseTime2, batuhanK.getCity() + " - Batuhan K's Mancave", "Gaming", Event.PrivacySetting.PRIVATE, DEFAULT_EVENT_IMAGE).buildWithHost(batuhanK));
+            if (omur != null) tempEventList.add(new EventBuilder("Book Club: Sci-Fi Classics (Past)", "Discussing 'Dune'.", soonEventBaseTime2.plusHours(1), "Online / Discord", "Study", Event.PrivacySetting.PUBLIC, DEFAULT_EVENT_IMAGE).buildWithHost(omur));
+
             if (randomU != null) tempEventList.add(new EventBuilder("Empty Future Event", "This event will have no participants initially.", now.plusDays(20).withHour(10), "To be decided", "Other", Event.PrivacySetting.PUBLIC, DEFAULT_EVENT_IMAGE).buildWithHost(randomU));
 
 
@@ -391,22 +391,22 @@ public class TestDataGenerator {
                 tryJoin(studyGroup, randomU);
             }
             if (boardGames != null) {
-                tryJoin(boardGames, ahmet); 
-                tryJoin(boardGames, omur);  
-                tryJoin(boardGames, batuhanY); 
+                tryJoin(boardGames, ahmet);
+                tryJoin(boardGames, omur);
+                tryJoin(boardGames, batuhanY);
                 tryJoin(boardGames, randomU);
             }
-             if (eymirHikePast != null && ahmet != null && mehmetE != null) {
+             if (eymirHikePast != null && ahmet != null && mehmetE != null && omur != null) {
                 tryJoin(eymirHikePast, omur);
                 participantService.markAttendance(eymirHikePast.getId(), omur.getId(), mehmetE);
                 tryJoin(eymirHikePast, ahmet);
                 participantService.markAttendance(eymirHikePast.getId(), ahmet.getId(), mehmetE);
-                tryJoin(eymirHikePast, randomU); 
+                tryJoin(eymirHikePast, randomU);
             }
             if (alphaPartyPast != null && batuhanY != null && omur != null && ahmet != null) {
                 tryJoin(alphaPartyPast, omur);
                 participantService.markAttendance(alphaPartyPast.getId(), omur.getId(), batuhanY);
-                tryJoin(alphaPartyPast, ahmet); 
+                tryJoin(alphaPartyPast, ahmet);
             }
             if(retroGameNightPast != null && batuhanK != null && ahmet != null && omur != null && randomU != null) {
                 tryJoin(retroGameNightPast, ahmet);
@@ -507,7 +507,7 @@ public class TestDataGenerator {
             System.err.println("  [WARN] Applying tag '" + tagName + "' to user '" + targetUser.getUsername() + "' by '" + appliedByUser.getUsername() + "': " + e.getMessage());
         }
     }
-    
+
     private static void tryApplyTagToEvent(Event event, String tagName, User appliedByUser) {
         if (event == null || appliedByUser == null || tagName == null || tagName.trim().isEmpty()) return;
         try {
@@ -541,11 +541,11 @@ public class TestDataGenerator {
             Event retroGameNightPast = findEventByTitle("Retro Game Night - NES Classics (Past)");
             Event bookClubPast = findEventByTitle("Book Club: Sci-Fi Classics (Past)");
 
-            tryRateEvent(eymirHikePast, omur, 5, "Eymir hike was fantastic!"); 
+            tryRateEvent(eymirHikePast, omur, 5, "Eymir hike was fantastic!");
             tryRateEvent(eymirHikePast, ahmet, 4, "Good organization for the hike.");
-            tryRateEvent(alphaPartyPast, omur, 5, "Alpha party was a blast!"); 
-            tryRateEvent(retroGameNightPast, ahmet, 5, "Loved the retro games!"); 
-            tryRateEvent(bookClubPast, randomU, 4, "Interesting book discussion."); 
+            tryRateEvent(alphaPartyPast, omur, 5, "Alpha party was a blast!");
+            tryRateEvent(retroGameNightPast, ahmet, 5, "Loved the retro games!");
+            tryRateEvent(bookClubPast, randomU, 4, "Interesting book discussion.");
             System.out.println("  [OK] Event rating attempts completed (for past events).");
 
         } catch (Exception e) { System.err.println("  [ERROR] During rating creation: " + e.getMessage()); e.printStackTrace(); }
@@ -576,7 +576,7 @@ public class TestDataGenerator {
         User mehmetE = getUserByUsername("mesarigul");
         User omur = getUserByUsername("omarici");
         User randomU = randomUserAccount;
-        
+
         try {
             if (ahmet != null && batuhanK != null) {
                 Comment c1 = tryPostCommentToProfile(ahmet, batuhanK, "Your Java study group sounds interesting!");
@@ -599,14 +599,14 @@ public class TestDataGenerator {
             Event techTalk = findEventByTitle("Tech Talk Tuesday: AI Ethics");
 
             if (studyGroup != null && mehmetE != null && ahmet != null) {
-                Comment ec1 = tryPostCommentToEvent(studyGroup, mehmetE, "What version of Java will be covered?"); 
+                Comment ec1 = tryPostCommentToEvent(studyGroup, mehmetE, "What version of Java will be covered?");
                 if (ec1 != null) {
                     tryReplyToComment(ec1, ahmet, "We'll focus on Java 17+ features.");
                 }
             }
-            if (eymirHikePast != null && omur != null) tryPostCommentToEvent(eymirHikePast, omur, "The Eymir hike was so refreshing, thanks for organizing!"); 
-            if (boardGames != null && randomU != null) tryPostCommentToEvent(boardGames, randomU, "Any recommendations for parking near the Board Game Den?"); 
-            if (techTalk != null && batuhanK != null) tryPostCommentToEvent(techTalk, batuhanK, "Will the AI Ethics talk be recorded?"); 
+            if (eymirHikePast != null && omur != null) tryPostCommentToEvent(eymirHikePast, omur, "The Eymir hike was so refreshing, thanks for organizing!");
+            if (boardGames != null && randomU != null) tryPostCommentToEvent(boardGames, randomU, "Any recommendations for parking near the Board Game Den?");
+            if (techTalk != null && batuhanK != null) tryPostCommentToEvent(techTalk, batuhanK, "Will the AI Ethics talk be recorded?");
             System.out.println("  [OK] Event comment attempts completed.");
 
         } catch (Exception e) { System.err.println("  [ERROR] During comment creation: " + e.getMessage()); e.printStackTrace();}
